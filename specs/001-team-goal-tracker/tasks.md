@@ -19,14 +19,14 @@
 
 **Purpose**: Project initialization and basic structure
 
-- [ ] T001 Create backend project structure with `dotnet new webapi -n TeamGoalTracker.Api -o backend/TeamGoalTracker.Api`
-- [ ] T002 Add Dapper and SQLite NuGet packages to `backend/TeamGoalTracker.Api/TeamGoalTracker.Api.csproj`
-- [ ] T003 [P] Create frontend project with `npm create vite@latest frontend -- --template vue-ts`
-- [ ] T004 [P] Install frontend dependencies: `cd frontend && npm install && npm install -D tailwindcss postcss autoprefixer daisyui`
-- [ ] T005 Configure Tailwind CSS in `frontend/tailwind.config.js` with DaisyUI plugin
-- [ ] T006 Configure PostCSS in `frontend/postcss.config.js`
-- [ ] T007 Add Tailwind directives to `frontend/src/style.css`
-- [ ] T008 Configure Vite proxy for API in `frontend/vite.config.ts`
+- [x] T001 Create backend project structure with `dotnet new webapi -n TeamGoalTracker.Api -o backend/TeamGoalTracker.Api`
+- [x] T002 Add Dapper and SQLite NuGet packages to `backend/TeamGoalTracker.Api/TeamGoalTracker.Api.csproj`
+- [x] T003 [P] Create frontend project with `npm create vite@latest frontend -- --template vue-ts`
+- [x] T004 [P] Install frontend dependencies: `cd frontend && npm install && npm install -D tailwindcss postcss autoprefixer daisyui`
+- [x] T005 Configure Tailwind CSS in `frontend/tailwind.config.js` with DaisyUI plugin
+- [x] T006 Configure PostCSS in `frontend/postcss.config.js`
+- [x] T007 Add Tailwind directives to `frontend/src/style.css`
+- [x] T008 Configure Vite proxy for API in `frontend/vite.config.ts`
 
 ---
 
@@ -36,15 +36,15 @@
 
 **CRITICAL**: No user story work can begin until this phase is complete
 
-- [ ] T009 Create Member database model in `backend/TeamGoalTracker.Api/Models/Member.cs`
-- [ ] T010 [P] Create Goal database model in `backend/TeamGoalTracker.Api/Models/Goal.cs`
-- [ ] T011 Create DatabaseInitializer with schema and seed data in `backend/TeamGoalTracker.Api/Data/DatabaseInitializer.cs`
-- [ ] T012 Configure SQLite connection string in `backend/TeamGoalTracker.Api/appsettings.json`
-- [ ] T013 Register DatabaseInitializer in `backend/TeamGoalTracker.Api/Program.cs` and configure CORS
-- [ ] T014 [P] Create MemberDto in `backend/TeamGoalTracker.Api/DTOs/MemberDto.cs`
-- [ ] T015 [P] Create GoalDto in `backend/TeamGoalTracker.Api/DTOs/GoalDto.cs`
-- [ ] T016 [P] Create TypeScript types in `frontend/src/types/index.ts` matching API DTOs
-- [ ] T017 Create API service module in `frontend/src/services/api.ts` with base fetch configuration
+- [x] T009 Create Member database model in `backend/TeamGoalTracker.Api/Models/Member.cs`
+- [x] T010 [P] Create Goal database model in `backend/TeamGoalTracker.Api/Models/Goal.cs`
+- [x] T011 Create DatabaseInitializer with schema and seed data in `backend/TeamGoalTracker.Api/Data/DatabaseInitializer.cs`
+- [x] T012 Configure SQLite connection string in `backend/TeamGoalTracker.Api/appsettings.json`
+- [x] T013 Register DatabaseInitializer in `backend/TeamGoalTracker.Api/Program.cs` and configure CORS
+- [x] T014 [P] Create MemberDto in `backend/TeamGoalTracker.Api/DTOs/MemberDto.cs`
+- [x] T015 [P] Create GoalDto in `backend/TeamGoalTracker.Api/DTOs/GoalDto.cs`
+- [x] T016 [P] Create TypeScript types in `frontend/src/types/index.ts` matching API DTOs
+- [x] T017 Create API service module in `frontend/src/services/api.ts` with base fetch configuration
 
 **Checkpoint**: Foundation ready - user story implementation can now begin
 
