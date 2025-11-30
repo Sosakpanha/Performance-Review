@@ -1,0 +1,295 @@
+openapi: 3.0.3
+info:
+  title: Team Daily Goal Tracker API
+  description: REST API for tracking team daily goals and mood
+  version: 1.0.0
+
+servers:
+  - url: http://localhost:5000/api
+    description: Local development server
+
+paths:
+  /members:
+    get:
+      summary: Get all team members with their goals
+      operationId: getMembers
+      tags:
+        - Members
+      responses:
+        '200':
+          description: List of all team members with goals
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/MemberDto'
+
+  /members/{id}:
+    get:
+      summary: Get a single team member with goals
+      operationId: getMember
+      tags:
+        - Members
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Team member details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MemberDto'
+        '404':
+          description: Member not found
+
+  /members/{id}/mood:
+    put:
+      summary: Update a team member's mood
+      operationId: updateMood
+      tags:
+        - Members
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateMoodRequest'
+      responses:
+        '204':
+          description: Mood updated successfully
+        '400':
+          description: Invalid mood value
+        '404':
+          description: Member not found
+
+  /goals:
+    get:
+      summary: Get all goals
+      operationId: getGoals
+      tags:
+        - Goals
+      responses:
+        '200':
+          description: List of all goals
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/GoalDto'
+
+    post:
+      summary: Create a new goal for a team member
+      operationId: createGoal
+      tags:
+        - Goals
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateGoalRequest'
+      responses:
+        '201':
+          description: Goal created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GoalDto'
+        '400':
+          description: Invalid request (missing fields or invalid member)
+
+  /goals/{id}:
+    delete:
+      summary: Delete a goal
+      operationId: deleteGoal
+      tags:
+        - Goals
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Goal deleted successfully
+        '404':
+          description: Goal not found
+
+  /goals/{id}/toggle:
+    put:
+      summary: Toggle goal completion status
+      operationId: toggleGoal
+      tags:
+        - Goals
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Goal toggled successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GoalDto'
+        '404':
+          description: Goal not found
+
+  /stats:
+    get:
+      summary: Get team statistics
+      operationId: getStats
+      tags:
+        - Statistics
+      responses:
+        '200':
+          description: Team statistics
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TeamStatsDto'
+
+components:
+  schemas:
+    MemberDto:
+      type: object
+      required:
+        - id
+        - name
+        - mood
+        - moodEmoji
+        - goals
+        - completedCount
+        - totalCount
+      properties:
+        id:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: "Alice"
+        mood:
+          type: string
+          enum: [happy, neutral, sad, stressed, excited]
+          example: "happy"
+        moodEmoji:
+          type: string
+          example: "😊"
+        goals:
+          type: array
+          items:
+            $ref: '#/components/schemas/GoalDto'
+        completedCount:
+          type: integer
+          example: 2
+        totalCount:
+          type: integer
+          example: 5
+
+    GoalDto:
+      type: object
+      required:
+        - id
+        - memberId
+        - description
+        - isCompleted
+      properties:
+        id:
+          type: integer
+          example: 1
+        memberId:
+          type: integer
+          example: 1
+        description:
+          type: string
+          example: "Complete code review"
+        isCompleted:
+          type: boolean
+          example: false
+
+    CreateGoalRequest:
+      type: object
+      required:
+        - memberId
+        - description
+      properties:
+        memberId:
+          type: integer
+          example: 1
+        description:
+          type: string
+          maxLength: 500
+          example: "Complete code review"
+
+    UpdateMoodRequest:
+      type: object
+      required:
+        - mood
+      properties:
+        mood:
+          type: string
+          enum: [happy, neutral, sad, stressed, excited]
+          example: "happy"
+
+    TeamStatsDto:
+      type: object
+      required:
+        - totalGoals
+        - completedGoals
+        - completionPercentage
+        - moodCounts
+      properties:
+        totalGoals:
+          type: integer
+          example: 15
+        completedGoals:
+          type: integer
+          example: 8
+        completionPercentage:
+          type: number
+          format: double
+          example: 53.33
+        moodCounts:
+          type: array
+          items:
+            $ref: '#/components/schemas/MoodCountDto'
+
+    MoodCountDto:
+      type: object
+      required:
+        - mood
+        - emoji
+        - count
+      properties:
+        mood:
+          type: string
+          example: "happy"
+        emoji:
+          type: string
+          example: "😊"
+        count:
+          type: integer
+          example: 2
+
+tags:
+  - name: Members
+    description: Team member operations
+  - name: Goals
+    description: Goal CRUD operations
+  - name: Statistics
+    description: Team statistics
