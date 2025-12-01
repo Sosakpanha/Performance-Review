@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import type { MemberDto } from '../types'
+import type { IMember } from '../models'
 import GoalItem from './GoalItem.vue'
 
 defineProps<{
-  member: MemberDto
+  member: IMember
 }>()
 
 const emit = defineEmits<{

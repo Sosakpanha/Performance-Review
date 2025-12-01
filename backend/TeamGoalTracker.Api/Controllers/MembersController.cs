@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using TeamGoalTracker.Api.DTOs;
-using TeamGoalTracker.Api.Services;
+using TeamGoalTracker.Api.Enums;
+using TeamGoalTracker.Api.Services.Interfaces;
 
 namespace TeamGoalTracker.Api.Controllers;
 
@@ -34,15 +35,19 @@ public class MembersController : ControllerBase
     }
 
     [HttpPut("{id}/mood")]
-    public async Task<IActionResult> UpdateMood(int id, [FromBody] UpdateMoodRequest request)
+    public async Task<IActionResult> UpdateMemberMood(int id, [FromBody] UpdateMoodRequest request)
     {
-        var validMoods = new[] { "happy", "neutral", "sad", "stressed", "excited" };
-        if (!validMoods.Contains(request.Mood))
+        if (!IsValidMood(request.Mood))
         {
             return BadRequest("Invalid mood value");
         }
 
         await _memberService.UpdateMoodAsync(id, request.Mood);
         return NoContent();
+    }
+
+    private static bool IsValidMood(string mood)
+    {
+        return Enum.TryParse<MoodEnum>(mood, ignoreCase: true, out _);
     }
 }

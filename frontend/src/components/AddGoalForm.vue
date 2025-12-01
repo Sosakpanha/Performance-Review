@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import type { MemberDto } from '../types'
+import type { IMember } from '../models'
 
 defineProps<{
-  members: MemberDto[]
+  members: IMember[]
 }>()
 
 const emit = defineEmits<{
@@ -11,8 +11,8 @@ const emit = defineEmits<{
 }>()
 
 const selectedMemberId = ref<number | null>(null)
-const description = ref('')
-const errorMessage = ref('')
+const description = ref<string>('')
+const errorMessage = ref<string>('')
 
 function handleSubmit() {
   errorMessage.value = ''

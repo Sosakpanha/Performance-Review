@@ -1,6 +1,8 @@
 using TeamGoalTracker.Api.Data;
 using TeamGoalTracker.Api.Repositories;
+using TeamGoalTracker.Api.Repositories.Interfaces;
 using TeamGoalTracker.Api.Services;
+using TeamGoalTracker.Api.Services.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 

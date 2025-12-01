@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using TeamGoalTracker.Api.DTOs;
-using TeamGoalTracker.Api.Services;
+using TeamGoalTracker.Api.Services.Interfaces;
 
 namespace TeamGoalTracker.Api.Controllers;
 
@@ -18,7 +18,7 @@ public class GoalsController : ControllerBase
     [HttpPost]
     public async Task<ActionResult<GoalDto>> CreateGoal([FromBody] CreateGoalRequest request)
     {
-        if (string.IsNullOrWhiteSpace(request.Description))
+        if (IsDescriptionEmpty(request.Description))
         {
             return BadRequest("Goal description is required");
         }
@@ -28,7 +28,7 @@ public class GoalsController : ControllerBase
     }
 
     [HttpPut("{id}/toggle")]
-    public async Task<IActionResult> ToggleGoal(int id)
+    public async Task<IActionResult> UpdateGoalCompletion(int id)
     {
         await _goalService.ToggleGoalAsync(id);
         return NoContent();
@@ -39,5 +39,10 @@ public class GoalsController : ControllerBase
     {
         await _goalService.DeleteGoalAsync(id);
         return NoContent();
+    }
+
+    private static bool IsDescriptionEmpty(string description)
+    {
+        return string.IsNullOrWhiteSpace(description);
     }
 }

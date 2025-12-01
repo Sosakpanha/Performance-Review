@@ -1,13 +1,11 @@
 using TeamGoalTracker.Api.DTOs;
-using TeamGoalTracker.Api.Repositories;
+using TeamGoalTracker.Api.Repositories.Interfaces;
+using TeamGoalTracker.Api.Services.Interfaces;
 
 namespace TeamGoalTracker.Api.Services;
 
 public class StatsService : IStatsService
 {
-    private readonly IGoalRepository _goalRepository;
-    private readonly IMemberRepository _memberRepository;
-
     private static readonly Dictionary<string, string> MoodEmojis = new()
     {
         { "happy", "\ud83d\ude0a" },
@@ -16,6 +14,9 @@ public class StatsService : IStatsService
         { "stressed", "\ud83d\ude30" },
         { "excited", "\ud83e\udd29" }
     };
+
+    private readonly IGoalRepository _goalRepository;
+    private readonly IMemberRepository _memberRepository;
 
     public StatsService(IGoalRepository goalRepository, IMemberRepository memberRepository)
     {
@@ -32,13 +33,28 @@ public class StatsService : IStatsService
         {
             TotalGoals = total,
             CompletedGoals = completed,
-            CompletionPercentage = total > 0 ? Math.Round((double)completed / total * 100, 1) : 0,
-            MoodCounts = moodCounts.Select(mc => new MoodCountDto
-            {
-                Mood = mc.Key,
-                Emoji = MoodEmojis.GetValueOrDefault(mc.Key, "\u2753"),
-                Count = mc.Value
-            }).ToList()
+            CompletionPercentage = GetCompletionPercentage(total, completed),
+            MoodCounts = GetMoodCountDtos(moodCounts)
         };
+    }
+
+    private static double GetCompletionPercentage(int total, int completed)
+    {
+        return total > 0 ? Math.Round((double)completed / total * 100, 1) : 0;
+    }
+
+    private static List<MoodCountDto> GetMoodCountDtos(Dictionary<string, int> moodCounts)
+    {
+        return moodCounts.Select(mc => new MoodCountDto
+        {
+            Mood = mc.Key,
+            Emoji = GetMoodEmoji(mc.Key),
+            Count = mc.Value
+        }).ToList();
+    }
+
+    private static string GetMoodEmoji(string mood)
+    {
+        return MoodEmojis.GetValueOrDefault(mood, "\u2753");
     }
 }

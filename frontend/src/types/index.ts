@@ -1,46 +1,9 @@
-export interface GoalDto {
-  id: number
-  memberId: number
-  description: string
-  isCompleted: boolean
-}
-
-export interface MemberDto {
-  id: number
-  name: string
-  mood: string
-  moodEmoji: string
-  goals: GoalDto[]
-  completedCount: number
-  totalCount: number
-}
-
-export interface CreateGoalRequest {
-  memberId: number
-  description: string
-}
-
-export interface UpdateMoodRequest {
-  mood: string
-}
-
-export interface TeamStatsDto {
-  totalGoals: number
-  completedGoals: number
-  completionPercentage: number
-  moodCounts: MoodCountDto[]
-}
-
-export interface MoodCountDto {
-  mood: string
-  emoji: string
-  count: number
-}
-
-export const MOOD_OPTIONS = [
-  { id: 'happy', emoji: '😊', label: 'Happy' },
-  { id: 'neutral', emoji: '😐', label: 'Neutral' },
-  { id: 'sad', emoji: '😢', label: 'Sad' },
-  { id: 'stressed', emoji: '😰', label: 'Stressed' },
-  { id: 'excited', emoji: '🎉', label: 'Excited' },
-] as const
+// Re-export from new locations for backward compatibility
+// This file is deprecated - use imports from '../models' and '../constants' instead
+export type { IGoal as GoalDto } from '../models'
+export type { IMember as MemberDto } from '../models'
+export type { ICreateGoalRequest as CreateGoalRequest } from '../models'
+export type { IUpdateMoodRequest as UpdateMoodRequest } from '../models'
+export type { ITeamStats as TeamStatsDto } from '../models'
+export type { IMoodCount as MoodCountDto } from '../models'
+export { MOOD_OPTIONS } from '../constants'

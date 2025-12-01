@@ -1,6 +1,5 @@
-import type { MemberDto, GoalDto, CreateGoalRequest, UpdateMoodRequest, TeamStatsDto } from '../types'
-
-const API_BASE = '/api'
+import type { IMember, IGoal, ICreateGoalRequest, IUpdateMoodRequest, ITeamStats } from '../models'
+import { API_BASE_URL } from '../constants'
 
 async function handleResponse<T>(response: Response): Promise<T> {
   if (!response.ok) {
@@ -13,36 +12,36 @@ async function handleResponse<T>(response: Response): Promise<T> {
 }
 
 export const api = {
-  async getMembers(): Promise<MemberDto[]> {
-    const response = await fetch(`${API_BASE}/members`)
-    return handleResponse<MemberDto[]>(response)
+  async getMembers(): Promise<IMember[]> {
+    const response = await fetch(`${API_BASE_URL}/members`)
+    return handleResponse<IMember[]>(response)
   },
 
-  async createGoal(request: CreateGoalRequest): Promise<GoalDto> {
-    const response = await fetch(`${API_BASE}/goals`, {
+  async createGoal(request: ICreateGoalRequest): Promise<IGoal> {
+    const response = await fetch(`${API_BASE_URL}/goals`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(request),
     })
-    return handleResponse<GoalDto>(response)
+    return handleResponse<IGoal>(response)
   },
 
-  async toggleGoal(id: number): Promise<GoalDto> {
-    const response = await fetch(`${API_BASE}/goals/${id}/toggle`, {
+  async toggleGoal(id: number): Promise<IGoal> {
+    const response = await fetch(`${API_BASE_URL}/goals/${id}/toggle`, {
       method: 'PUT',
     })
-    return handleResponse<GoalDto>(response)
+    return handleResponse<IGoal>(response)
   },
 
   async deleteGoal(id: number): Promise<void> {
-    const response = await fetch(`${API_BASE}/goals/${id}`, {
+    const response = await fetch(`${API_BASE_URL}/goals/${id}`, {
       method: 'DELETE',
     })
     return handleResponse<void>(response)
   },
 
-  async updateMood(memberId: number, request: UpdateMoodRequest): Promise<void> {
-    const response = await fetch(`${API_BASE}/members/${memberId}/mood`, {
+  async updateMood(memberId: number, request: IUpdateMoodRequest): Promise<void> {
+    const response = await fetch(`${API_BASE_URL}/members/${memberId}/mood`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(request),
@@ -50,8 +49,8 @@ export const api = {
     return handleResponse<void>(response)
   },
 
-  async getStats(): Promise<TeamStatsDto> {
-    const response = await fetch(`${API_BASE}/stats`)
-    return handleResponse<TeamStatsDto>(response)
+  async getStats(): Promise<ITeamStats> {
+    const response = await fetch(`${API_BASE_URL}/stats`)
+    return handleResponse<ITeamStats>(response)
   },
 }

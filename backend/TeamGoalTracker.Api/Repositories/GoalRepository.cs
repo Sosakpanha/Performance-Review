@@ -1,6 +1,7 @@
 using Microsoft.Data.Sqlite;
 using Dapper;
 using TeamGoalTracker.Api.Models;
+using TeamGoalTracker.Api.Repositories.Interfaces;
 
 namespace TeamGoalTracker.Api.Repositories;
 

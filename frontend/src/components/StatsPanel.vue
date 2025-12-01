@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
-import type { TeamStatsDto } from '../types'
+import type { ITeamStats } from '../models'
 import { api } from '../services/api'
 
-const stats = ref<TeamStatsDto | null>(null)
-const loading = ref(true)
+const stats = ref<ITeamStats | null>(null)
+const loading = ref<boolean>(true)
 const error = ref<string | null>(null)
 
 async function fetchStats() {

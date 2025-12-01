@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import type { GoalDto } from '../types'
+import type { IGoal } from '../models'
 
 defineProps<{
-  goal: GoalDto
+  goal: IGoal
 }>()
 
 const emit = defineEmits<{

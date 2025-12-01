@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import type { MemberDto } from '../types'
-import { MOOD_OPTIONS } from '../types'
+import type { IMember } from '../models'
+import { MOOD_OPTIONS } from '../constants'
 
 defineProps<{
-  members: MemberDto[]
+  members: IMember[]
 }>()
 
 const emit = defineEmits<{
@@ -12,8 +12,8 @@ const emit = defineEmits<{
 }>()
 
 const selectedMemberId = ref<number | null>(null)
-const selectedMood = ref('')
-const errorMessage = ref('')
+const selectedMood = ref<string>('')
+const errorMessage = ref<string>('')
 
 function handleSubmit() {
   errorMessage.value = ''

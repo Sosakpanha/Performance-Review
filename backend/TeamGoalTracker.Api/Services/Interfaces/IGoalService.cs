@@ -1,6 +1,6 @@
 using TeamGoalTracker.Api.DTOs;
 
-namespace TeamGoalTracker.Api.Services;
+namespace TeamGoalTracker.Api.Services.Interfaces;
 
 public interface IGoalService
 {

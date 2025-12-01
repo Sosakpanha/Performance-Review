@@ -1,6 +1,6 @@
 using TeamGoalTracker.Api.Models;
 
-namespace TeamGoalTracker.Api.Repositories;
+namespace TeamGoalTracker.Api.Repositories.Interfaces;
 
 public interface IGoalRepository
 {

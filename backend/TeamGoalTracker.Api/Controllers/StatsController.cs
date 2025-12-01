@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using TeamGoalTracker.Api.DTOs;
-using TeamGoalTracker.Api.Services;
+using TeamGoalTracker.Api.Services.Interfaces;
 
 namespace TeamGoalTracker.Api.Controllers;
 
@@ -16,7 +16,7 @@ public class StatsController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<TeamStatsDto>> GetStats()
+    public async Task<ActionResult<TeamStatsDto>> GetTeamStats()
     {
         var stats = await _statsService.GetTeamStatsAsync();
         return Ok(stats);

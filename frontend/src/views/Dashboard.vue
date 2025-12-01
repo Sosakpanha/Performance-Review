@@ -1,14 +1,14 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
-import type { MemberDto } from '../types'
+import type { IMember } from '../models'
 import { api } from '../services/api'
 import MemberCard from '../components/MemberCard.vue'
 import AddGoalForm from '../components/AddGoalForm.vue'
 import UpdateMoodForm from '../components/UpdateMoodForm.vue'
 import StatsPanel from '../components/StatsPanel.vue'
 
-const members = ref<MemberDto[]>([])
-const loading = ref(true)
+const members = ref<IMember[]>([])
+const loading = ref<boolean>(true)
 const error = ref<string | null>(null)
 const statsPanel = ref<InstanceType<typeof StatsPanel> | null>(null)
 
